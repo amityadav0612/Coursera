@@ -1,7 +1,7 @@
 const Router = require("express");
 const adminRouter = Router();
 const jwt = require("jsonwebtoken");
-const { JWT_ADMIN_PASSWORD } = require("../config");
+const { JWT_ADMIN_PASSWORD } = require("../../config");
 
 const bcrypt = require("bcrypt");
 const { adminModel, userModel, courseModel } = require("../../db");
