@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+body{
+    box-sizing: border-box;
+    margin:0;
+    background-color: black;
+  
+}
+
+animation {
+    scrollbar-width: 'scroll var(--animation-duration) linear infinite',
+    paused   'animation-play-state: paused',
+  }
+  
+  keyframes{
+    scrollbar-width:'0%'transform'translateX(0)' 
+      
+      '100%'transform'translateX(calc(var(--num-cards) * (var(--card-width) + var(--gap-width)) * -1))'
+      '100%'transform 'translateX(-50%)'
+  }
