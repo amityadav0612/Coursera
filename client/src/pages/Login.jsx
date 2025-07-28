@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState } from "react";
 
 const YourBrandLogo = () => (
-  <img src="/images/logo.jpg" alt="Your Brand Logo" className="h-10 md:h-12 mb-8" />
+  <img
+    src="/images/logo.jpg"
+    alt="Your Brand Logo"
+    className="h-10 md:h-12 mb-8"
+  />
 );
 
 export const Login = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
       <div className="bg-gray-950 p-8 border-2 border-gray-900  md:p-10 lg:p-12 rounded-2xl shadow-lg max-w-md w-full text-gray-300">
-        <div className="flex justify-center">
-         
+        <div className="flex justify-center"></div>
+        <div className="flex gap-6 ml-8">
+          <h2 className="text-xl font-bold text-center mt-3 ">Welcome to</h2>
+          <span>
+            <YourBrandLogo />
+          </span>
         </div>
-        <div className='flex gap-6 ml-8'>
-        <h2 className="text-xl font-bold text-center mt-3 ">Welcome to</h2>
-        <span>
-          <YourBrandLogo />
-        </span>
-        </div>
-      
-        <form  className="space-y-6">
+
+        <form className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-300 mb-2"
+            >
               Email Address
             </label>
             <input
@@ -32,7 +37,10 @@ export const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-300 mb-2"
+            >
               Password
             </label>
             <input
@@ -51,7 +59,7 @@ export const Login = () => {
         </form>
 
         <p className="text-center text-gray-400 text-sm mt-8">
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <a href="/signup" className="text-blue-400 hover:underline">
             Sign Up
           </a>
@@ -65,4 +73,3 @@ export const Login = () => {
     </div>
   );
 };
-

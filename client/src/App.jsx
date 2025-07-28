@@ -1,30 +1,24 @@
+import { Navbar } from "./components/Navbar";
+import { Home } from "./pages/Home";
+import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
 
-import { Footer } from './components/Footer'
-import { Footercta } from './components/Footer-cta'
-import { InfiniteMovingCards } from './components/Infinite-moving-card'
-import { Hero } from './components/Hero'
-import { Navbar } from './components/Navbar'
-import { Login } from './pages/Login'
-import { Signup } from './pages/Signup'
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
-    <div>
-      {/* <Navbar />
-       <Hero />
-       <InfiniteMovingCards />
-       <Footer />  */}
-       {/* <Footercta /> */}
-       <Signup />
-       {/* <Login /> */}
-   
-    </div>
-      
-   
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            {" "}
+          </Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

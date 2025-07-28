@@ -1,4 +1,5 @@
 import React from "react";
+
 const YourCompanyLogo = () => (
   <img src="/images/logo.jpg" alt="Coursera Logo" className="h-8 md:h-10" />
 );
@@ -43,7 +44,6 @@ export const Footer = () => {
       {" "}
       {/* bg-dark-background from your page, mt-16 for spacing */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
-        
         <div className="flex flex-col items-start md:col-span-1">
           <div className="mb-4  flex flex-col ">
             <div className="flex">
@@ -75,7 +75,7 @@ export const Footer = () => {
         <div className="ml-30 mt-3">
           <h3 className="text-lg font-semibold mb-4 ">Resources</h3>
           <ul className="space-y-2 text-gray-400 text-sm">
-          <li>
+            <li>
               <a
                 href="#"
                 className="hover:text-blue-400 transition-colors duration-200"
@@ -133,7 +133,6 @@ export const Footer = () => {
           </ul>
         </div>
       </div>
-
       <div className="max-w-6xl mx-auto mt-12 pt-8  text-center text-gray-500 text-sm">
         <p>&copy; {new Date().getFullYear()} coursera . All rights reserved.</p>
       </div>

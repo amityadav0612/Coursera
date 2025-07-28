@@ -1,10 +1,12 @@
 const express = require("express");
 const { Router } = require("express");
+// require('dotenv').config();
 const { userModel, courseModel } = require("../../db");
-const { JWT_USER_PASSWORD } = require("../../config");
+// const { JWT_USER_PASSWORD } = require("../../config");
 const userRouter = Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const JWT_USER_PASSWORD="amityadafv" ;
 
 const {userMiddleware}= require("../../middlewares/user");
 
@@ -12,6 +14,12 @@ userRouter.post("/signup", async (req, res) => {
   const { email, firstName, lastName, password } = req.body;
 
   try {
+    const existingUser = await userModel.findOne({ email });
+       if (existingUser) {
+      return res.status(409)
+      .json({ message: "User already exists" });
+}
+    
     const hasedPassword = await bcrypt.hash(password, 10);
 
     const user = await userModel.create({
@@ -31,34 +39,36 @@ userRouter.post("/signup", async (req, res) => {
 });
 
 userRouter.post("/signin", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
 
   try {
-    const user = await userModel.findOne({
-      email: email,
-    });
+    const user = await userModel.findOne({ email });
 
-    const matchPassword = await bcrypt.compare(password, user.password);
-
-    if (user && matchPassword) {
-      const token = jwt.sign(
-        {
-          id: user._id
-        },
-        JWT_USER_PASSWORD
-      );
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
     }
-    res.status(200).json({
-      message: "You are signin",
-      token: token,
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, JWT_USER_PASSWORD);
+
+    return res.status(200).json({
+      message: "You are signed in",
+      token,
     });
   } catch (error) {
-    res.json({
-      message: "Invalid username or password",
+    console.error("Signin error:", error);  // 👈 See actual error
+    return res.status(500).json({
+      message: "Internal server error",
     });
   }
 });
+
+
 userRouter.get("/course", userMiddleware, async (req, res) => {
   const userId = req.userId;
 
