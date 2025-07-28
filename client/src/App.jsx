@@ -5,6 +5,7 @@ import { InfiniteMovingCards } from './components/Infinite-moving-card'
 import { Hero } from './components/Hero'
 import { Navbar } from './components/Navbar'
 import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
 
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
        <InfiniteMovingCards />
        <Footer />  */}
        {/* <Footercta /> */}
-       <Login />
+       <Signup />
+       {/* <Login /> */}
    
     </div>
       

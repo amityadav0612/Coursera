@@ -4,7 +4,7 @@ const YourBrandLogo = () => (
   <img src="/images/logo.jpg" alt="Your Brand Logo" className="h-10 md:h-12 mb-8" />
 );
 
-export const Login = () => {
+export const Signup = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
       <div className="bg-gray-950 p-8 border-2 border-gray-900  md:p-10 lg:p-12 rounded-2xl shadow-lg max-w-md w-full text-gray-300">
@@ -19,6 +19,28 @@ export const Login = () => {
         </div>
       
         <form  className="space-y-6">
+        <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              Email Address
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              className="w-full px-4 py-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your first name"
+            />
+          </div> 
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastname"
+              className="w-full px-4 py-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your last name"
+            />
+          </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
               Email Address
@@ -46,21 +68,21 @@ export const Login = () => {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#1A1A1B]"
           >
-            Signin
+            Signup
           </button>
         </form>
-
+{/* 
         <p className="text-center text-gray-400 text-sm mt-8">
           Don't have an account?{' '}
           <a href="/signup" className="text-blue-400 hover:underline">
             Sign Up
           </a>
-        </p>
-        <p className="text-center text-gray-400 text-sm mt-4">
+        </p> */}
+        {/* <p className="text-center text-gray-400 text-sm mt-4">
           <a href="/forgot-password" className="text-blue-400 hover:underline">
             Forgot Password?
           </a>
-        </p>
+        </p> */}
       </div>
     </div>
   );
