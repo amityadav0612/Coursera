@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 const YourBrandLogo = () => (
   <img
@@ -16,7 +17,7 @@ export const Signup = () => {
     email: "",
     password: "",
   });
-
+const navigate=useNavigate();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -29,6 +30,7 @@ export const Signup = () => {
       },
       body: JSON.stringify(form),
     });
+    navigate("/login");
     setForm({ firstname: "", lastname: "", email: "", password: "" });
   };
 
