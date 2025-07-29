@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 const YourBrandLogo = () => (
   <img
@@ -9,6 +10,43 @@ const YourBrandLogo = () => (
 );
 
 export const Login = () => {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate=useNavigate();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus("");
+    try {
+      const res=await fetch("/api/v1/user/signin", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+      const data =await res.json({});
+      if (!res.ok) {
+        setStatus(data.message || "Login failed.");
+        setLoading(false);
+        return;
+      } 
+      localStorage.setItem("token",data.token);
+      setStatus("Login successfull")
+      navigate("/dashboard");
+    } 
+    catch (err) {
+      setStatus("Network error. Please try again.");
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
       <div className="bg-gray-950 p-8 border-2 border-gray-900  md:p-10 lg:p-12 rounded-2xl shadow-lg max-w-md w-full text-gray-300">
@@ -20,7 +58,7 @@ export const Login = () => {
           </span>
         </div>
 
-        <form className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
               htmlFor="email"
@@ -29,6 +67,9 @@ export const Login = () => {
               Email Address
             </label>
             <input
+              onChange={handleChange}
+              value={form.email}
+              name="email"
               type="email"
               id="email"
               className="w-full px-4 py-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -44,6 +85,9 @@ export const Login = () => {
               Password
             </label>
             <input
+              onChange={handleChange}
+              value={form.password}
+              name="password"
               type="password"
               id="password"
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -52,9 +96,10 @@ export const Login = () => {
           </div>
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#1A1A1B]"
           >
-            Signin
+            {loading ? "Signing in..." : "Signin"}
           </button>
         </form>
 
@@ -69,6 +114,9 @@ export const Login = () => {
             Forgot Password?
           </a>
         </p>
+        {status && (
+          <p className="text-center text-sm mt-4 text-blue-400">{status}</p>
+        )}
       </div>
     </div>
   );

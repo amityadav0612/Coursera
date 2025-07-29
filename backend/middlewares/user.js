@@ -1,24 +1,24 @@
-const Jwt=require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
+const { JWT_USER_PASSWORD } = require("../config");
 
-const JWT_USER_PASSWORD=require("../config");
+function userMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization;
 
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-function userMiddleware(req,res,next){
-const token=req.headers.token;
+  const token = authHeader.split(" ")[1];
 
-const decoded=jwt.verify(token,JWT_USER_PASSWORD);
-
-if(decoded){
-    req.userId=decoded.userId;
+  try {
+    const decoded = jwt.verify(token, JWT_USER_PASSWORD);
+    req.userId = decoded.id;  // or decoded.userId if that's what you signed
     next();
-}
-else{
-    res.status(403).json({
-        message:"You are not signin.."
-    })
-}
+  } catch (err) {
+    return res.status(403).json({ message: "Invalid or expired token" });
+  }
 }
 
-module.exports={
-    userMiddleware
-}
+module.exports = {
+  userMiddleware,
+};
